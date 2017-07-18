@@ -1,0 +1,70 @@
+cmake_minimum_required(VERSION 3.5)
+project(TTMS)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+set(SOURCE_FILES
+    src/Common/Common.c
+    src/Common/Common.h
+    src/Common/List.h
+    src/Persistence/Account_Persist.c
+    src/Persistence/Account_Persist.h
+    src/Persistence/EntityKey_Persist.c
+    src/Persistence/EntityKey_Persist.h
+    src/Persistence/Play_Persist.c
+    src/Persistence/Play_Persist.h
+    src/Persistence/Query_Persist.c
+    src/Persistence/Query_Persist.h
+    src/Persistence/Sale_Persist.c
+    src/Persistence/Sale_Persist.h
+    src/Persistence/Schedule_Persist.c
+    src/Persistence/Schedule_Persist.h
+    src/Persistence/Seat_Persist.c
+    src/Persistence/Seat_Persist.h
+    src/Persistence/Studio_Persist.c
+    src/Persistence/Studio_Persist.h
+    src/Persistence/Ticket_Persist.c
+    src/Persistence/Ticket_Persist.h
+    src/Service/Account.c
+    src/Service/Account.h
+    src/Service/EntityKey.c
+    src/Service/EntityKey.h
+    src/Service/Play.c
+    src/Service/Play.h
+    src/Service/Sale.c
+    src/Service/Sale.h
+    src/Service/SalesAnalysis.c
+    src/Service/SalesAnalysis.h
+    src/Service/Schedule.c
+    src/Service/Schedule.h
+    src/Service/Seat.c
+    src/Service/Seat.h
+    src/Service/Studio.c
+    src/Service/Studio.h
+    src/Service/Ticket.c
+    src/Service/Ticket.h
+    src/View/Account_UI.c
+    src/View/Account_UI.h
+    src/View/Main_Menu.c
+    src/View/Main_Menu.h
+    src/View/Play_UI.c
+    src/View/Play_UI.h
+    src/View/Queries_Menu.c
+    src/View/Queries_Menu.h
+    src/View/Query_Play_UI.c
+    src/View/Query_Play_UI.h
+    src/View/Sale_UI.c
+    src/View/Sale_UI.h
+    src/View/SalesAnalysis_UI.c
+    src/View/SalesAnalysis_UI.h
+    src/View/Schedule_UI.c
+    src/View/Schedule_UI.h
+    src/View/Seat_UI.c
+    src/View/Seat_UI.h
+    src/View/Studio_UI.c
+    src/View/Studio_UI.h
+    src/View/Ticket_UI.c
+    src/View/Ticket_UI.h
+    src/TTMS.c)
+
+add_executable(TTMS ${SOURCE_FILES})

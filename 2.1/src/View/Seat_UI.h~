@@ -1,0 +1,7 @@
+#ifndef SEAT_UI_H_
+#define SEAT_UI_H_
+
+#include<gtk/gtk.h>
+
+
+#endif

@@ -1,0 +1,19 @@
+#ifndef LOGIN_UI_H_
+#define LOGIN_UI_H_
+
+#include<gtk/gtk.h>
+
+
+//创建经理功能页面
+GtkWidget* Clerk_UI_MgtEntry();
+
+//创建售票员功能页面
+GtkWidget* Mang_UI_MgtEntry();
+
+//创建系统管理员功能页面
+GtkWidget* Admin_UI_MgtEntry();
+
+//由系统管理员页面转至放映厅管理页面
+void Menu_to_Studio(GtkWidget *button ,gpointer userdate);
+
+#endif

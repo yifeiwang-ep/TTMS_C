@@ -1,0 +1,31 @@
+#ifndef CALLBACK_H_
+#define CALLBACK_H_
+
+#include<gtk/gtk.h>
+#include "../Common/List.h"
+#include "../Service/Studio.h"
+
+GtkWidget *text_user;//用户名文本输入框
+GtkWidget *text_pass;//密码文本输入框
+GtkWidget *login_window;//用户登录窗口
+GtkWidget *menu_window;//用户功能窗口
+GtkWidget *studio_window;//放映厅管理页面
+
+gint studio_now;//放映厅当前行数
+gint studio_num;//放映厅列表总行数
+
+GtkWidget* studio_list;
+
+//用户登录验证
+void Login_UI_Think(GtkWidget *button ,gpointer userdate);
+
+//由主菜单转至放映厅管理页面
+void Menu_to_Studio(GtkWidget *button ,gpointer userdate);
+
+//演出厅列表初始化
+void Clist_make(GtkWidget *Clist, studio_list_t head);
+
+//定位放映厅列表界面选中行
+void selection_made( GtkWidget *list,gint row,gint column,GdkEventButton *event,gpointer userdate);
+
+#endif

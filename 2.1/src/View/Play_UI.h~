@@ -1,0 +1,8 @@
+#ifndef PLAY_UI_H_
+#define PLAY_UI_H_
+#include"../Service/Play.h"
+
+#include<gtk/gtk.h>
+
+
+#endif

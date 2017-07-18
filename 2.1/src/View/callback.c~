@@ -1,0 +1,76 @@
+#include"interface.h"
+#include"callback.h"
+#include<gtk/gtk.h>
+#include<string.h>
+#include "../Service/Account.h"
+#include "../Common/List.h"
+#include "../Service/Studio.h"
+
+const char *a="123";
+const char *b="456";
+
+//用户登录验证
+void Login_UI_Think(GtkWidget *button ,gpointer userdate)
+{
+	account_t buf;
+	const char *user_str = gtk_entry_get_text(GTK_ENTRY(text_user));
+	const char *pass_str = gtk_entry_get_text(GTK_ENTRY(text_pass));
+	if(Account_Srv_Verify(user_str,pass_str))
+	{
+		gtk_widget_destroy(login_window);
+		Account_Srv_FetchByName(user_str, &buf);
+		switch (buf.type)
+		{
+			case 0: 
+				break;
+			case 1:
+				g_print("1");
+				menu_window = Clerk_UI_MgtEntry();
+ 				break;
+			case 2:
+				g_print("2");
+				menu_window = Mang_UI_MgtEntry();
+				break;
+			case 9:
+				g_print("9");
+				menu_window = Admin_UI_MgtEntry();
+				break;
+		}
+		gtk_widget_show_all(menu_window);		
+	}
+        return;
+}
+
+//由主菜单转至放映厅管理页面
+void Menu_to_Studio(GtkWidget *button ,gpointer userdate)
+{
+	gtk_widget_destroy(menu_window);
+	studio_window = Studio_UI_MgtEntry();
+	gtk_widget_show_all(studio_window);
+}
+
+//演出厅列表初始化
+void Studio_Clist_Make(GtkWidget *Clist, studio_list_t head)
+{
+	char *s[3];
+	char temp1[10],temp2[10];
+	studio_list_t curPos;
+
+	List_ForEach(head, curPos)
+	{
+		s[0] = curPos->data.name;
+		sprintf(temp1,"%d",curPos->data.rowsCount);
+		s[1] = temp1;
+		sprintf(temp2,"%d",curPos->data.colsCount);
+		s[2] = temp2;
+		gtk_clist_append((GtkCList *)Clist,s);	
+	}
+}
+
+//定位放映厅列表界面选中行
+void selection_made( GtkWidget *list,gint row,gint column,GdkEventButton *event,gpointer userdate)
+{
+	gchar *text;
+	gtk_clist_get_text(GTK_CLIST(list), row, column, &text);
+	studio_now=row;
+}

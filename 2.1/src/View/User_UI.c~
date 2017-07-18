@@ -1,0 +1,141 @@
+#include<gtk/gtk.h>
+#include"Studio_UI.h"
+#include"Schedule_UI.h"
+#include"User_UI.h"
+#include"Window_UI.h"
+
+//创建经理功能页面
+GtkWidget* Mang_UI_MgtEntry()
+{
+	GtkWidget* window;
+	GtkWidget* button1;
+	GtkWidget* button2;
+	GtkWidget* button3;
+	GtkWidget* button4;
+	GtkWidget* button5;
+	GtkWidget* button6;
+	GtkWidget* button7;
+	GtkWidget* box;
+
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	g_signal_connect(G_OBJECT(window),"delete_event",G_CALLBACK(gtk_main_quit),NULL);
+	gtk_container_set_border_width(GTK_CONTAINER(window),10);
+
+	gtk_window_set_title(GTK_WINDOW(window),"经理功能页面");
+	gtk_window_set_position(GTK_WINDOW(window),GTK_WIN_POS_CENTER);
+	gtk_window_set_default_size(GTK_WINDOW(window),600,250);
+
+	box = gtk_vbox_new(TRUE,10);
+	gtk_container_add(GTK_CONTAINER(window),box);
+
+	button1 = gtk_button_new_with_label("管理剧目");
+	button2 = gtk_button_new_with_label("查询演出");
+	button3 = gtk_button_new_with_label("安排演出");
+	button4 = gtk_button_new_with_label("演出票房排行");
+	button5 = gtk_button_new_with_label("分析销售数据");
+	button6 = gtk_button_new_with_label("统计销售额");
+	button7 = gtk_button_new_with_label("退出");
+	
+	gtk_box_pack_start(GTK_BOX(box),button1,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button2,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button3,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button4,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button5,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button6,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button7,FALSE,TRUE,0);
+
+	//g_signal_connect(G_OBJECT(button1),"clicked",G_CALLBACK(Mang_Menu_to_Play),NULL);
+	//g_signal_connect(G_OBJECT(button2),"clicked",G_CALLBACK(),NULL);
+	g_signal_connect(G_OBJECT(button3),"clicked",G_CALLBACK(Clerk_Menu_to_Schedule_add),NULL);
+	g_signal_connect(G_OBJECT(button4),"clicked",G_CALLBACK(Clerk_Menu_to_Play_find),NULL);
+	//g_signal_connect(G_OBJECT(button5),"clicked",G_CALLBACK(Login_UI_Think),NULL);
+	//g_signal_connect(G_OBJECT(button6),"clicked",G_CALLBACK(Login_UI_Think),NULL);
+	g_signal_connect(G_OBJECT(button7),"clicked",G_CALLBACK(gtk_main_quit),NULL);
+
+	return window;
+}
+
+//创建售票员功能页面
+GtkWidget* Clerk_UI_MgtEntry()
+{
+	GtkWidget* window;
+	GtkWidget* button1;
+	GtkWidget* button2;
+	GtkWidget* button3;
+	GtkWidget* button4;
+	GtkWidget* button5;
+	GtkWidget* box;
+
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	g_signal_connect(G_OBJECT(window),"delete_event",G_CALLBACK(gtk_main_quit),NULL);
+	gtk_container_set_border_width(GTK_CONTAINER(window),10);
+
+	gtk_window_set_title(GTK_WINDOW(window),"售票员功能页面");
+	gtk_window_set_position(GTK_WINDOW(window),GTK_WIN_POS_CENTER);
+	gtk_window_set_default_size(GTK_WINDOW(window),600,250);
+
+	box = gtk_vbox_new(TRUE,10);
+	gtk_container_add(GTK_CONTAINER(window),box);
+
+	button1 = gtk_button_new_with_label("售票");
+	button2 = gtk_button_new_with_label("查询演出");
+	button3 = gtk_button_new_with_label("查询演出票");
+	button4 = gtk_button_new_with_label("统计销售额");
+	button5 = gtk_button_new_with_label("退出");
+	
+	gtk_box_pack_start(GTK_BOX(box),button1,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button2,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button3,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button4,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button5,FALSE,TRUE,0);
+
+	//g_signal_connect(G_OBJECT(button1),"clicked",G_CALLBACK(Login_UI_Think),NULL);
+	g_signal_connect(G_OBJECT(button2),"clicked",G_CALLBACK(Clerk_Menu_to_Play_find),NULL);
+	//g_signal_connect(G_OBJECT(button3),"clicked",G_CALLBACK(Clerk_Menu_to_Schedule_find),NULL);
+	//g_signal_connect(G_OBJECT(button4),"clicked",G_CALLBACK(Login_UI_Think),NULL);
+	g_signal_connect(G_OBJECT(button5),"clicked",G_CALLBACK(gtk_main_quit),NULL);
+
+	return window;
+}
+
+//创建系统管理员功能页面
+GtkWidget* Admin_UI_MgtEntry()
+{
+	GtkWidget* window;
+	GtkWidget* button1;
+	GtkWidget* button2;
+	GtkWidget* button3;
+	GtkWidget* button4;
+	GtkWidget* box;
+
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	g_signal_connect(G_OBJECT(window),"delete_event",G_CALLBACK(gtk_main_quit),NULL);
+	gtk_container_set_border_width(GTK_CONTAINER(window),10);
+
+	gtk_window_set_title(GTK_WINDOW(window),"系统管理员功能页面");
+	gtk_window_set_position(GTK_WINDOW(window),GTK_WIN_POS_CENTER);
+	gtk_window_set_default_size(GTK_WINDOW(window),600,250);
+
+	box = gtk_vbox_new(TRUE,10);
+	gtk_container_add(GTK_CONTAINER(window),box);
+
+	button1 = gtk_button_new_with_label("管理演出厅");
+//	button2 = gtk_button_new_with_label("设置座位");
+	button3 = gtk_button_new_with_label("管理系统用户");
+	button4 = gtk_button_new_with_label("退出");
+	
+	gtk_box_pack_start(GTK_BOX(box),button1,FALSE,TRUE,0);
+//	gtk_box_pack_start(GTK_BOX(box),button2,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button3,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),button4,FALSE,TRUE,0);
+
+	g_signal_connect(G_OBJECT(button1),"clicked",G_CALLBACK(Admin_Menu_to_Studio),NULL);
+	//g_signal_connect(G_OBJECT(button2),"clicked",G_CALLBACK(Admin_Menu_to_Account),NULL);
+	g_signal_connect(G_OBJECT(button3),"clicked",G_CALLBACK(Admin_Menu_to_Account),NULL);
+	g_signal_connect(G_OBJECT(button4),"clicked",G_CALLBACK(gtk_main_quit),NULL);
+
+	return window;
+}
+
+
+

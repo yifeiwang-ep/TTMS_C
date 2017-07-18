@@ -1,0 +1,104 @@
+#include "Ticket.h"
+#include "EntityKey.h"
+
+#include "../Common/List.h"
+#include "../Service/Schedule.h"
+#include "../Service/Play.h"
+#include "../Persistence/Ticket_Persist.h"
+#include "../Persistence/Play_Persist.h"
+#include "../Persistence/Seat_Persist.h"
+#include "../Persistence/Schedule_Persist.h"
+#include "../Service/Seat.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+//根据演出计划ID和演出厅ID批量生成票服务
+int Ticket_Srv_AddBatch(int schedule_id, int studio_id){
+		int price;
+	seat_list_t list,curPos;
+	ticket_list_t list_t,newNode;
+	List_Init(list_t, ticket_node_t);
+
+	List_Init(list, seat_node_t);
+	Seat_Perst_SelectByRoomID(list, studio_id);
+	
+	schedule_t buf;
+	Schedule_Perst_SelectByID(schedule_id, &buf);
+
+	play_t buf2;	
+	Play_Perst_SelectByID(buf.play_id, &buf2);
+
+	price = buf2.price;
+
+	List_ForEach(list, curPos)
+	{
+		if(curPos->data.status!=9)
+		{
+			
+				newNode=(ticket_list_t)malloc(sizeof(ticket_node_t));
+				newNode->data.id = EntKey_Srv_CompNewKey("ticket");
+				newNode->data.schedule_id = schedule_id;
+				newNode->data.price = price;
+				newNode->data.status = 0;
+				List_AddTail(list_t,newNode);
+		}
+	}
+	return Ticket_Perst_Insert(list_t);
+}
+//根据演出计划ID批量删除票服务
+int Ticket_Srv_DeleteBatch(int schedule_id) {
+	return Ticket_Perst_Delete(schedule_id);
+}
+//修改票的信息
+int Ticket_Srv_Modify(const ticket_t * data){
+	return Ticket_Perst_Update(data);	
+}
+//根据ID获取票
+int Ticket_Srv_FetchByID(int ID, ticket_t *buf) {
+	return Ticket_Perst_SelectByID(ID, buf);
+}
+
+
+//根据座位ID在list中找对应票
+inline ticket_node_t * Ticket_Srv_FindBySeatID(ticket_list_t list, int seat_id) {	
+	ticket_list_t pre;
+	pre=list->next;
+	while(pre!=list)	{
+		if(pre->data.seat_id==seat_id)	{
+			return pre;
+			break;	
+		}	
+		else	{
+			pre=pre->next;
+		}
+	}
+	return NULL;
+}
+
+
+//根据计划ID提取所有演出票
+int Ticket_Srv_FetchBySchID(ticket_list_t list, int schedule_id) {
+       return Ticket_Perst_SelectBySchID(list,schedule_id);
+}
+
+//根据演出计划ID，统计上座率及票房，返回票房输入
+int Ticket_Srv_StatRevBySchID(int schedule_id, int *soldCount, int *totalCount){
+	int sum=0;
+	ticket_list_t list,buf;
+	*soldCount = *totalCount = 0;
+	List_Init(list, ticket_node_t);
+	*totalCount = Ticket_Perst_SelectBySchID( list, schedule_id);
+	buf = list->next;
+	while(buf!=list)
+	{
+		if(buf->data.status==1)
+		{
+			(*soldCount) ++;
+			sum += buf->data.price;
+		}
+		buf = buf->next;
+	}
+       return sum;
+}
+
+
